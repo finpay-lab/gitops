@@ -27,6 +27,8 @@ spec:
               value: single-node
             - name: plugins.security.disabled
               value: "true"
+            - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+              value: "Finpay!Lab#2026"
             - name: OPENSEARCH_JAVA_OPTS
               value: "-Xms512m -Xmx512m"
           readinessProbe:

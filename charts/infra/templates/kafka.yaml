@@ -66,5 +66,9 @@ spec:
   selector:
     app.kubernetes.io/name: kafka
   ports:
-    - port: 9092
+    - name: plaintext
+      port: 9092
       targetPort: 9092
+    - name: controller
+      port: 9093
+      targetPort: 9093
