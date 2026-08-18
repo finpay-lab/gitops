@@ -2,7 +2,7 @@ replicas: 2
 port: 8082
 image:
   repository: finpaylab/customer-service
-  tag: latest
+  tag: v1
   pullPolicy: IfNotPresent
 env:
   PG_HOST: postgres.finpay-infra.svc.cluster.local

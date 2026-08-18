@@ -2,7 +2,7 @@ replicas: 1
 port: 8091
 image:
   repository: finpaylab/infrastructure
-  tag: latest
+  tag: v1
   pullPolicy: IfNotPresent
 env: {}
 resources:
