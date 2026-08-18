@@ -1,0 +1,6 @@
+apiVersion: v2
+name: finpay-infra
+description: FinPay local/platform infrastructure (postgres,kafka,redis,opensearch,keycloak,prometheus,grafana,otel)
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

@@ -1,0 +1,20 @@
+replicas: 2
+port: 8080
+image:
+  repository: finpaylab/gateway
+  tag: latest
+  pullPolicy: IfNotPresent
+env:
+  REDIS_HOST: redis.finpay-infra.svc.cluster.local
+  REDIS_PORT: '6379'
+  KAFKA_BOOTSTRAP: kafka.finpay-infra.svc.cluster.local:9092
+  GATEWAY_ISSUER: http://keycloak.finpay-infra.svc.cluster.local:8081/realms/finpay
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+service:
+  type: ClusterIP

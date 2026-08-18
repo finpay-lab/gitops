@@ -1,0 +1,6 @@
+apiVersion: v2
+name: finpay-service
+description: Reusable FinPay business-service chart (Deployment + Service + basic config).
+type: application
+version: 0.1.0
+appVersion: "4.1.0"

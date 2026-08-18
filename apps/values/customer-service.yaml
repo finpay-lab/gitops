@@ -1,0 +1,21 @@
+replicas: 2
+port: 8082
+image:
+  repository: finpaylab/customer-service
+  tag: latest
+  pullPolicy: IfNotPresent
+env:
+  PG_HOST: postgres.finpay-infra.svc.cluster.local
+  PG_DB: customer_service
+  PG_USER: finpay
+  PG_PASSWORD: finpay
+  KAFKA_BOOTSTRAP: kafka.finpay-infra.svc.cluster.local:9092
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+service:
+  type: ClusterIP

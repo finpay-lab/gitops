@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: finpay-services
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - name: gateway
+            port: "8080"
+            ns: finpay-services
+          - name: customer-service
+            port: "8082"
+            ns: finpay-services
+          - name: identity-service
+            port: "8081"
+            ns: finpay-services
+          - name: ledger-service
+            port: "8086"
+            ns: finpay-services
+          - name: transfer-service
+            port: "8085"
+            ns: finpay-services
+          - name: notification-service
+            port: "8087"
+            ns: finpay-services
+          - name: observability
+            port: "8090"
+            ns: finpay-services
+          - name: infrastructure
+            port: "8091"
+            ns: finpay-services
+  template:
+    metadata:
+      name: "{{ .name }}"
+      namespace: argocd
+      labels:
+        app.kubernetes.io/part-of: finpay
+    spec:
+      project: finpay
+      source:
+        repoURL: https://github.com/finpay-lab/gitops.git
+        targetRevision: main
+        path: charts/finpay-service
+        helm:
+          valueFiles:
+            - "../../apps/values/{{ .name }}.yaml"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{ .ns }}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true

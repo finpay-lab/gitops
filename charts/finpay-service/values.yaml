@@ -1,0 +1,17 @@
+replicas: 2
+port: 8080
+service:
+  type: ClusterIP
+image:
+  repository: finpaylab/placeholder
+  tag: latest
+  pullPolicy: IfNotPresent
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+# Per-service infra env (PG/KAFKA/REDIS hosts, secrets via sealed/externalsecret)
+env: {}
