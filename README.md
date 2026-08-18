@@ -62,11 +62,22 @@ kubectl apply -k gitops/environments/prod
 
 ## Image build (per service repo)
 
-Each service repo has a `Dockerfile` (multi-stage, JDK 21, bakes `./gradlew
-bootJar`). The `finpay-platform` composite-build submodule must be present at
-build time (checked out as a git submodule in CI). CI builds
-`finpaylab/<service>:<tag>` and the GitOps `values/<service>.yaml` pins the tag;
-Argo rolls it out.
+Each service repo has a **runtime-only** `Dockerfile` that copies a pre-built
+`build/libs/*.jar` into `eclipse-temurin:21-jre`. The `bootJar` is produced
+separately with the Gradle image (keeps the image build fast + reproducible):
+
+```bash
+# 1. build the jar (finpay-platform submodule must be present on disk)
+docker run --rm -v "$PWD":/work -w /work -v gradle-cache:/root/.gradle \
+  gradle:9.7.0-jdk21-ubi gradle clean bootJar --no-daemon
+# 2. build + tag the image
+docker build -t finpaylab/<service>:<tag> .
+# 3. load into a local kind cluster (no registry needed for the lab)
+kind load docker-image finpaylab/<service>:<tag> --name finpay
+```
+
+CI does the same and pushes `finpaylab/<service>:<tag>` to a registry; the
+GitOps `values/<service>.yaml` pins the tag and Argo rolls it out.
 
 ## Local (kind/k3d) smoke test
 
