@@ -53,8 +53,10 @@ spec:
           readinessProbe:
             exec:
               command: ["/opt/kafka/bin/kafka-topics.sh", "--bootstrap-server", "localhost:9092", "--list"]
-            initialDelaySeconds: 20
+            initialDelaySeconds: 30
             periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
           resources:
             requests: {cpu: 200m, memory: 512Mi}
             limits: {cpu: 1, memory: 1Gi}
