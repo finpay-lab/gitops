@@ -2,7 +2,7 @@ replicas: 1
 port: 8090
 image:
   repository: finpaylab/observability
-  tag: v1
+  tag: fix2
   pullPolicy: IfNotPresent
 env: {}
 resources:
