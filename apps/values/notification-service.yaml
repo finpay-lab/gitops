@@ -2,7 +2,7 @@ replicas: 2
 port: 8087
 image:
   repository: finpaylab/notification-service
-  tag: v1
+  tag: fix1
   pullPolicy: IfNotPresent
 env: {}
 resources:

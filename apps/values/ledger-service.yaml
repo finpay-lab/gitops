@@ -2,7 +2,7 @@ replicas: 2
 port: 8086
 image:
   repository: finpaylab/ledger-service
-  tag: v1
+  tag: fix1
   pullPolicy: IfNotPresent
 env: {}
 resources:

@@ -2,7 +2,7 @@ replicas: 2
 port: 8085
 image:
   repository: finpaylab/transfer-service
-  tag: v1
+  tag: fix1
   pullPolicy: IfNotPresent
 env: {}
 resources:
