@@ -29,17 +29,19 @@ gitops/
 | Service | Port | Needs |
 |---|---|---|
 | gateway | 8080 | redis, kafka, keycloak(issuer) |
-| identity-service | 8081 | — |
+| identity-service | 8081 | postgres (`identity_service`), keycloak |
 | customer-service | 8082 | postgres (`customer_service`), kafka |
-| transfer-service | 8085 | — |
-| ledger-service | 8086 | — |
-| notification-service | 8087 | — |
-| observability | 8090 | — |
-| infra-tooling | 8091 | — |
+| transfer-service | 8085 | postgres (`transfer_service`), kafka |
+| ledger-service | 8086 | postgres (`finpay_ledger`), kafka |
+| notification-service | 8087 | postgres (`finpay_notification`), kafka |
+| observability | 8090 | prometheus, otel-collector |
+| infra-tooling | 8091 | — (renamed from `infrastructure` to avoid shadowing `finpay-infra`) |
 
-Database-per-service: `customer-service` owns `customer_service` on the shared
-Postgres (ADR-0005). Other services are stubs (no JPA/Kafka yet) and run as
-healthy k8s workloads that export OTel/Prometheus.
+Database-per-service: `customer-service` owns `customer_service`, `ledger-service`
+owns `finpay_ledger`, `transfer-service` owns `transfer_service`,
+`identity-service` owns `identity_service`, `notification-service` owns
+`finpay_notification` (ADR-0005). All 8 services are fully implemented (JPA +
+Kafka + REST) and run as healthy k8s workloads exporting OTel/Prometheus.
 
 ## Apply
 
