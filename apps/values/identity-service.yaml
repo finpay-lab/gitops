@@ -2,7 +2,7 @@ replicas: 2
 port: 8081
 image:
   repository: finpaylab/identity-service
-  tag: fix1
+  tag: fp9
   pullPolicy: IfNotPresent
 env: {}
 resources:
