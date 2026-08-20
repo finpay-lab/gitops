@@ -35,7 +35,7 @@ gitops/
 | ledger-service | 8086 | — |
 | notification-service | 8087 | — |
 | observability | 8090 | — |
-| infrastructure | 8091 | — |
+| infra-tooling | 8091 | — |
 
 Database-per-service: `customer-service` owns `customer_service` on the shared
 Postgres (ADR-0005). Other services are stubs (no JPA/Kafka yet) and run as

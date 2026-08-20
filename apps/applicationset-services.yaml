@@ -29,7 +29,7 @@ spec:
           - name: observability
             port: "8090"
             ns: finpay-services
-          - name: infrastructure
+          - name: infra-tooling
             port: "8091"
             ns: finpay-services
   template:
