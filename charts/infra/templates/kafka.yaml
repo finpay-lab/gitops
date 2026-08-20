@@ -50,16 +50,18 @@ spec:
               value: "true"
             - name: KAFKA_LOG_DIRS
               value: /var/lib/kafka/data
+            - name: KAFKA_HEAP_OPTS
+              value: "-Xms512m -Xmx768m"
           readinessProbe:
             exec:
               command: ["/opt/kafka/bin/kafka-topics.sh", "--bootstrap-server", "localhost:9092", "--list"]
             initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 6
+            periodSeconds: 15
+            timeoutSeconds: 10
+            failureThreshold: 10
           resources:
-            requests: {cpu: 200m, memory: 512Mi}
-            limits: {cpu: 1, memory: 1Gi}
+            requests: {cpu: 250m, memory: 1Gi}
+            limits: {cpu: 1, memory: 2Gi}
           volumeMounts:
             - name: data
               mountPath: /var/lib/kafka/data
