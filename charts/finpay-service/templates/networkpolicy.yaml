@@ -30,7 +30,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/part-of: finpay-services
+      app.kubernetes.io/part-of: finpay
   policyTypes: [Ingress]
   ingress:
     - from:
@@ -48,7 +48,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/part-of: finpay-services
+      app.kubernetes.io/part-of: finpay
   policyTypes: [Egress]
   egress:
     - to:
