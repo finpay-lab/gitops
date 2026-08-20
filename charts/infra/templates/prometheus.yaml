@@ -40,7 +40,11 @@ spec:
       containers:
         - name: prometheus
           image: prom/prometheus:v2.54.1
-          args: ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.path=/prometheus"]
+          args:
+            - "--storage.tsdb.retention.time=6h"
+            - "--storage.tsdb.retention.size=512MB"
+            - "--config.file=/etc/prometheus/prometheus.yml"
+            - "--storage.tsdb.path=/prometheus"
           ports:
             - containerPort: 9090
           volumeMounts:
@@ -50,7 +54,7 @@ spec:
               mountPath: /prometheus
           resources:
             requests: {cpu: 100m, memory: 256Mi}
-            limits: {cpu: 500m, memory: 1Gi}
+            limits: {cpu: 500m, memory: 512Mi}
       volumes:
         - name: config
           configMap:

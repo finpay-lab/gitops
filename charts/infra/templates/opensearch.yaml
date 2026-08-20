@@ -30,7 +30,7 @@ spec:
             - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
               value: "Finpay!Lab#2026"
             - name: OPENSEARCH_JAVA_OPTS
-              value: "-Xms512m -Xmx512m"
+              value: "-Xms256m -Xmx384m"
           readinessProbe:
             httpGet:
               path: /_cluster/health
@@ -38,8 +38,8 @@ spec:
             initialDelaySeconds: 20
             periodSeconds: 10
           resources:
-            requests: {cpu: 250m, memory: 1Gi}
-            limits: {cpu: 1, memory: 2Gi}
+            requests: {cpu: 250m, memory: 512Mi}
+            limits: {cpu: 1, memory: 1Gi}
 ---
 apiVersion: v1
 kind: Service
