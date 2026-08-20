@@ -1,7 +1,7 @@
 replicas: 1
 port: 8091
 image:
-  repository: finpaylab/infra-tooling
+  repository: finpaylab/infrastructure
   tag: fp9
   pullPolicy: IfNotPresent
 env: {}
