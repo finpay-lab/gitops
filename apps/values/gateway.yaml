@@ -1,4 +1,4 @@
-replicas: 2
+replicas: 1
 port: 8080
 image:
   repository: ghcr.io/finpay-lab/gateway

@@ -1,4 +1,4 @@
-replicas: 2
+replicas: 1
 port: 8087
 image:
   repository: finpaylab/notification-service

@@ -1,4 +1,4 @@
-replicas: 2
+replicas: 1
 port: 8085
 image:
   repository: finpaylab/transfer-service

@@ -1,4 +1,4 @@
-replicas: 2
+replicas: 1
 port: 8086
 image:
   repository: finpaylab/ledger-service
