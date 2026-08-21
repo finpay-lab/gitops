@@ -80,7 +80,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: bootstrap
-          image: minio/mc:latest
+          image: minio/minio:RELEASE.2024-06-13T22-53-53Z
           command:
             - /bin/sh
             - -c
