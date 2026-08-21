@@ -89,10 +89,10 @@ spec:
               vault policy write finpay-apps - <<'POL'
               path "secret/data/finpay/*" { capabilities = ["read","list"] }
               POL
-              vault write secret/finpay/postgres username=finpay password=finpay
-              vault write secret/finpay/kafka username=finpay password=finpay
-              vault write secret/finpay/redis password=finpay
-              vault write secret/finpay/minio rootUser=minioadmin rootPassword=minioadmin
-              vault write secret/finpay/ghcr username=finpay password=CHANGEME
-              vault write secret/finpay/ai key=CHANGEME
+              vault kv put secret/finpay/postgres username=finpay password=finpay
+              vault kv put secret/finpay/kafka username=finpay password=finpay
+              vault kv put secret/finpay/redis password=finpay
+              vault kv put secret/finpay/minio rootUser=minioadmin rootPassword=minioadmin
+              vault kv put secret/finpay/ghcr username=finpay password=CHANGEME
+              vault kv put secret/finpay/ai key=CHANGEME
               echo "vault bootstrap complete"
