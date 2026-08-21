@@ -1,9 +1,11 @@
 replicas: 2
 port: 8080
 image:
-  repository: finpaylab/gateway
+  repository: ghcr.io/finpay-lab/gateway
   tag: fp9
   pullPolicy: IfNotPresent
+  imagePullSecrets:
+    - ghcr-secret
 env:
   REDIS_HOST: redis.finpay-infra.svc.cluster.local
   REDIS_PORT: '6379'

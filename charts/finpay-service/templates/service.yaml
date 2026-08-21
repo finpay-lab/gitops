@@ -32,6 +32,12 @@ spec:
         prometheus.io/port: "{{ .Values.port }}"
         prometheus.io/path: /actuator/prometheus
     spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range .Values.imagePullSecrets }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
       containers:
         - name: {{ .Release.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
