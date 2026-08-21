@@ -1,0 +1,96 @@
+# NetworkPolicy for the finpay-services namespace.
+# Owned solely by the finpay-infra Application (rendered into finpay-services
+# via the explicit namespace below) so it is NOT duplicated across the 8
+# per-service Applications (which previously caused SharedResourceWarning +
+# OutOfSync). FP-27.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: finpay-services-default-deny
+  namespace: finpay-services
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: finpay-services-allow-dns
+  namespace: finpay-services
+spec:
+  podSelector: {}
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: finpay-services-allow-gateway-ingress
+  namespace: finpay-services
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/part-of: finpay
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: gateway
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: finpay-services-allow-infra
+  namespace: finpay-services
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/part-of: finpay
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: finpay-infra
+      ports:
+        - protocol: TCP
+          port: 5432   # postgres
+        - protocol: TCP
+          port: 9092   # kafka
+        - protocol: TCP
+          port: 6379   # redis
+        - protocol: TCP
+          port: 9200   # opensearch
+        - protocol: TCP
+          port: 4317   # otel
+        - protocol: TCP
+          port: 9090   # prometheus
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: finpay-services-allow-internal
+  namespace: finpay-services
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/part-of: finpay
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/part-of: finpay
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/part-of: finpay
