@@ -1,0 +1,14 @@
+replicas: 1
+image:
+  repository: finpaylab/finpay-web
+  tag: web1
+  pullPolicy: IfNotPresent
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+service:
+  type: ClusterIP

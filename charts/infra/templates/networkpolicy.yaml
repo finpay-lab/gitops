@@ -70,6 +70,12 @@ spec:
         - protocol: TCP
           port: 9200   # opensearch
         - protocol: TCP
+          port: 8200   # vault
+        - protocol: TCP
+          port: 9000   # minio api
+        - protocol: TCP
+          port: 9001   # minio console
+        - protocol: TCP
           port: 4317   # otel
         - protocol: TCP
           port: 9090   # prometheus

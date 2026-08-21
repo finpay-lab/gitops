@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: finpay-web
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: finpay
+spec:
+  project: finpay
+  source:
+    repoURL: https://github.com/finpay-lab/gitops.git
+    targetRevision: main
+    path: charts/finpay-web
+    helm:
+      valueFiles:
+        - ../../apps/values/finpay-web.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: finpay-services
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
